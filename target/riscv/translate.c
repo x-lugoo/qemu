@@ -672,6 +672,7 @@ bool decode_insn16(DisasContext *ctx, uint16_t insn);
 #include "decode_insn16.inc.c"
 #include "insn_trans/trans_rvc.inc.c"
 
+/* gen_intermediate_code()->decode_opc()->tcg_gen_op_type()<in tcg_op.h>*/
 static void decode_opc(DisasContext *ctx)
 {
     /* check for compressed insn */
@@ -783,6 +784,7 @@ static const TranslatorOps riscv_tr_ops = {
     .disas_log          = riscv_tr_disas_log,
 };
 
+/* tb_alloc()->gen_intermediate_code()->decode_opc() ~jeff */
 void gen_intermediate_code(CPUState *cs, TranslationBlock *tb)
 {
     DisasContext ctx;

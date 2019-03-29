@@ -17,6 +17,13 @@
 #include "exec/tb-hash.h"
 
 /* Might cause an exception, so have a longjmp destination ready */
+/* tb_find()->tb_lookup__cpu_state() TB valid?cpu_loop_exec_tb():
+*tb_htable_lookup()->tb_gen_code()->tb_alloc()
+*in <translate-all.c>->tcg_gen_code()->cpu_loop_exec_tb()
+*
+* tb_alloc(){gen_intermediate_code()->decode_opc()->tcg_gen_op_type()->
+*tcg_emit_op()->tcg_op_alloc()->tcg_malloc()}
+*/
 static inline TranslationBlock *
 tb_lookup__cpu_state(CPUState *cpu, target_ulong *pc, target_ulong *cs_base,
                      uint32_t *flags, uint32_t cf_mask)

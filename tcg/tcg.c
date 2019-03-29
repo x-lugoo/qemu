@@ -2261,6 +2261,7 @@ void tcg_op_remove(TCGContext *s, TCGOp *op)
 #endif
 }
 
+/* tcg_gen_op_type()->tcg_op_alloc()->tcg_malloc() ~jeff */
 static TCGOp *tcg_op_alloc(TCGOpcode opc)
 {
     TCGContext *s = tcg_ctx;
@@ -2278,7 +2279,7 @@ static TCGOp *tcg_op_alloc(TCGOpcode opc)
 
     return op;
 }
-
+/* tcg_gen_op_type()->tcg_emit_op()->tcg_op_alloc()->tcg_malloc() ~jeff */
 TCGOp *tcg_emit_op(TCGOpcode opc)
 {
     TCGOp *op = tcg_op_alloc(opc);

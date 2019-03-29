@@ -1157,6 +1157,8 @@ void tcg_exec_init(unsigned long tb_size)
  * Allocate a new translation block. Flush the translation buffer if
  * too many translation blocks or too much generated code.
  */
+
+/* tb_gen_code()->tb_alloc()->tcg_gen_code() ~jeff*/
 static TranslationBlock *tb_alloc(target_ulong pc)
 {
     TranslationBlock *tb;
@@ -1664,6 +1666,7 @@ tb_link_page(TranslationBlock *tb, tb_page_addr_t phys_pc,
 }
 
 /* Called with mmap_lock held for user mode emulation.  */
+/*tb_htable_lookup()->tb_gen_code()->tb_alloc() ~jeff */
 TranslationBlock *tb_gen_code(CPUState *cpu,
                               target_ulong pc, target_ulong cs_base,
                               uint32_t flags, int cflags)

@@ -393,6 +393,7 @@ static inline void tb_add_jump(TranslationBlock *tb, int n,
     return;
 }
 
+/* cpu_exec()->tb_find()->tb_lookup_cpu_state() ~jeff */
 static inline TranslationBlock *tb_find(CPUState *cpu,
                                         TranslationBlock *last_tb,
                                         int tb_exit, uint32_t cf_mask)
@@ -657,7 +658,7 @@ static inline void cpu_loop_exec_tb(CPUState *cpu, TranslationBlock *tb,
 }
 
 /* main execution loop */
-
+ /* cpu_exec()->tb_find()->tb_lookup_cpu_state() ~jeff */
 int cpu_exec(CPUState *cpu)
 {
     CPUClass *cc = CPU_GET_CLASS(cpu);
@@ -725,6 +726,7 @@ int cpu_exec(CPUState *cpu)
                 cpu->cflags_next_tb = -1;
             }
 
+	    /* tb-find()->tb_lookup_cpu_state() ~jeff */
             tb = tb_find(cpu, last_tb, tb_exit, cflags);
             cpu_loop_exec_tb(cpu, tb, &last_tb, &tb_exit);
             /* Try to align the host and virtual clocks
